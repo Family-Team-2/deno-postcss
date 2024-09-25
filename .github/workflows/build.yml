@@ -1,0 +1,51 @@
+name: Build
+
+on:
+    workflow_call:
+    push:
+        paths-ignore:
+            - "**.md"
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - edited
+            - synchronize
+        paths-ignore:
+            - "**.md"
+    schedule:
+        - cron: "22 4 * * 5"
+
+permissions:
+    contents: read
+
+jobs:
+    build:
+        name: Build package
+        runs-on: "${{ matrix.os }}"
+        strategy:
+            fail-fast: false
+            matrix:
+                deno_version: [v1.x]
+                os: [ubuntu-latest, windows-latest]
+
+        steps:
+            - name: Force LF line endings on Windows
+              run: |-
+                  git config --system core.autocrlf false
+                  git config --system core.eol lf
+              if: matrix.os == 'windows-latest'
+
+            - name: Install Deno
+              uses: denoland/setup-deno@v1
+              with:
+                  deno-version: "${{ matrix.deno_version }}"
+
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Lint project
+              run: deno task lint
+
+            - name: Test project
+              run: deno task test

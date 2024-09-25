@@ -1,0 +1,54 @@
+{
+    "imports": {
+        "std/": "jsr:/@std/",
+        "nanoid": "https://deno.land/x/nanoid@v3.0.0/nanoid.ts",
+        "sourcemap": "https://deno.land/x/source_map@0.7.5/mod.js"
+    },
+    "tasks": {
+        "lint": "deno check lib/* test/* mod.js && deno fmt --check && deno lint",
+        "test": "deno test --allow-read --allow-env --permit-no-files",
+        "fmt": "deno fmt"
+    },
+    "compilerOptions": {
+        "strict": true
+    },
+    "nodeModulesDir": false,
+    "lint": {
+        "rules": {
+            "tags": [
+                "recommended"
+            ],
+            "include": [
+                "camelcase",
+                "default-param-last",
+                "no-const-assign",
+                "no-eval",
+                "no-external-import",
+                "no-self-compare",
+                "no-throw-literal",
+                "no-undef"
+            ],
+            "exclude": [
+                "prefer-const",
+                "no-explicit-any",
+                "no-this-alias",
+                "no-unused-vars"
+            ]
+        }
+    },
+    "fmt": {
+        "useTabs": false,
+        "lineWidth": 160,
+        "indentWidth": 4,
+        "semiColons": true,
+        "singleQuote": true,
+        "proseWrap": "preserve",
+        "exclude": [
+            "*.yml",
+            "*.yaml"
+        ]
+    },
+    "exclude": [
+        ".github"
+    ]
+}
