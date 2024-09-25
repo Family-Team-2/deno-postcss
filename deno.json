@@ -1,8 +1,6 @@
 {
     "imports": {
-        "std/": "jsr:/@std/",
-        "nanoid": "https://deno.land/x/nanoid@v3.0.0/nanoid.ts",
-        "sourcemap": "https://deno.land/x/source_map@0.7.5/mod.js"
+        "std/": "jsr:/@std/"
     },
     "tasks": {
         "lint": "deno check lib/* test/* mod.js && deno fmt --check && deno lint",
